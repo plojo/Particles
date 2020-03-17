@@ -5,9 +5,11 @@ declare namespace Particles {
     class Particle {
         position: f.Vector2;
         velocity: f.Vector2;
-        maxAge: number;
+        angle: number;
+        angularVelocity: number;
         image: CanvasImageSource;
-        private age;
+        maxAge: number;
+        age: number;
         constructor(_position?: f.Vector2);
         update(_deltaTime: number): boolean;
     }

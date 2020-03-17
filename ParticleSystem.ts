@@ -6,9 +6,11 @@ namespace Particles {
     export class Particle {
         public position: f.Vector2;
         public velocity: f.Vector2 = f.Vector2.ZERO();
-        public maxAge: number = Number.MAX_SAFE_INTEGER;
+        public angle: number = 0;
+        public angularVelocity: number = 0;
         public image: CanvasImageSource;
-        private age: number = 0;
+        public maxAge: number = Number.MAX_SAFE_INTEGER;
+        public age: number = 0;
 
         constructor(_position: f.Vector2 = f.Vector2.ZERO()) {
             this.position = _position;
@@ -17,6 +19,7 @@ namespace Particles {
         public update(_deltaTime: number): boolean {
             this.age += _deltaTime;
             this.position.add(f.Vector2.SCALE(this.velocity, _deltaTime));
+            this.angle += this.angularVelocity * _deltaTime;
             return this.age < this.maxAge;
         }
     }

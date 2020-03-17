@@ -4,6 +4,8 @@ var Particles;
     class Particle {
         constructor(_position = Particles.f.Vector2.ZERO()) {
             this.velocity = Particles.f.Vector2.ZERO();
+            this.angle = 0;
+            this.angularVelocity = 0;
             this.maxAge = Number.MAX_SAFE_INTEGER;
             this.age = 0;
             this.position = _position;
@@ -11,6 +13,7 @@ var Particles;
         update(_deltaTime) {
             this.age += _deltaTime;
             this.position.add(Particles.f.Vector2.SCALE(this.velocity, _deltaTime));
+            this.angle += this.angularVelocity * _deltaTime;
             return this.age < this.maxAge;
         }
     }
