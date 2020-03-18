@@ -1,3 +1,3 @@
 # Particles
-[objectbased](https://plojo.github.io/Particles/objectbased)
-[objectbased](https://plojo.github.io/Particles/deterministic)
+[objectbased](https://plojo.github.io/Particles/objectbased) <br>
+[deterministic](https://plojo.github.io/Particles/deterministic)
