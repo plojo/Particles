@@ -42,6 +42,7 @@ namespace ParticlesDeterministic {
             // if (Math.random() < 0.01) {
             //     emit(system, canvas.width, canvas.height);
             // }
+            // input.value = (f.Time.game.get() * 0.001).toString();
             system.update(input.valueAsNumber);
             ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
