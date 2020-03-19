@@ -15,7 +15,7 @@ var LissaJous;
         LissaJous.f.Debug.log("Canvas", canvas);
         // enable unlimited mouse-movement (user needs to click on canvas first)
         canvas.addEventListener("mousedown", canvas.requestPointerLock);
-        // canvas.addEventListener("mouseup", () => document.exitPointerLock());
+        canvas.addEventListener("mouseup", () => document.exitPointerLock());
         // setup orbiting camera
         camera = new LissaJous.fAid.CameraOrbit(new LissaJous.f.ComponentCamera());
         root.addChild(camera);
@@ -40,6 +40,8 @@ var LissaJous;
         }
     }
     function hndPointerMove(_event) {
+        if (!_event.buttons)
+            return;
         camera.rotateY(_event.movementX * speedCameraRotation);
         camera.rotateX(_event.movementY * speedCameraRotation);
         // viewport.draw();

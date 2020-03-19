@@ -18,7 +18,7 @@ namespace LissaJous {
 
         // enable unlimited mouse-movement (user needs to click on canvas first)
         canvas.addEventListener("mousedown", canvas.requestPointerLock);
-        // canvas.addEventListener("mouseup", () => document.exitPointerLock());
+        canvas.addEventListener("mouseup", () => document.exitPointerLock());
 
         // setup orbiting camera
         camera = new fAid.CameraOrbit(new f.ComponentCamera());
@@ -52,6 +52,8 @@ namespace LissaJous {
     }
 
     function hndPointerMove(_event: f.EventPointer): void {
+        if (!_event.buttons)
+            return;
         camera.rotateY(_event.movementX * speedCameraRotation);
         camera.rotateX(_event.movementY * speedCameraRotation);
         // viewport.draw();
