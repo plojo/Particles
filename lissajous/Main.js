@@ -5,19 +5,20 @@ var LissaJous;
     LissaJous.fAid = FudgeAid;
     window.addEventListener("load", hndLoad);
     let root = new LissaJous.f.Node("Root");
+    let particles = new LissaJous.f.Node("Particles");
     let viewport;
     let camera;
     let speedCameraRotation = 0.2;
     let speedCameraTranslation = 0.02;
     function hndLoad(_event) {
         const canvas = document.querySelector("canvas");
-        LissaJous.f.RenderManager.initialize(true);
+        LissaJous.f.RenderManager.initialize(false, true);
         LissaJous.f.Debug.log("Canvas", canvas);
         // enable unlimited mouse-movement (user needs to click on canvas first)
         canvas.addEventListener("mousedown", canvas.requestPointerLock);
         canvas.addEventListener("mouseup", () => document.exitPointerLock());
         // setup orbiting camera
-        camera = new LissaJous.fAid.CameraOrbit(new LissaJous.f.ComponentCamera());
+        camera = new LissaJous.fAid.CameraOrbit(new LissaJous.f.ComponentCamera(), 10);
         root.addChild(camera);
         // setup viewport
         viewport = new LissaJous.f.Viewport();
@@ -30,14 +31,38 @@ var LissaJous;
         viewport.addEventListener("\u0192wheel" /* WHEEL */, hndWheelMove);
         let mesh = new LissaJous.f.MeshQuad();
         let material = new LissaJous.f.Material("Alpha", LissaJous.f.ShaderUniColor, new LissaJous.f.CoatColored(LissaJous.f.Color.CSS("RED")));
-        let node = new LissaJous.fAid.Node("Alpha", LissaJous.f.Matrix4x4.TRANSLATION(new LissaJous.f.Vector3(0, 0, 0)), material, mesh);
-        root.addChild(node);
+        root.addChild(particles);
+        particles.addChild(particle(mesh, material));
         viewport.draw();
+        let omegaX = 1;
+        let omegaY = 2;
+        let phaseX = Math.PI / 2;
+        let phaseY = 0;
+        LissaJous.f.Time.game.setTimer(100, 20, () => {
+            particles.addChild(particle(mesh, material));
+        });
         LissaJous.f.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         LissaJous.f.Loop.start(LissaJous.f.LOOP_MODE.TIME_GAME, 60);
         function update(_event) {
+            let time = LissaJous.f.Time.game.get() * 0.001;
+            for (const child of particles.getChildren()) {
+                let x = Math.sin(omegaX * time + phaseX);
+                let y = Math.sin(omegaY * time + phaseY);
+                child.cmpTransform.local.translation = new LissaJous.f.Vector3(x, y, 0);
+                console.log(child);
+                time -= 0.1;
+            }
+            // console.log(time);
             viewport.draw();
         }
+    }
+    // function update(_time: number): f.Vector3 {
+    //     return new f.Vector3()
+    // }
+    function particle(_mesh, _material) {
+        let node = new LissaJous.fAid.Node("Alpha", LissaJous.f.Matrix4x4.TRANSLATION(new LissaJous.f.Vector3(0, 0, 0)), _material, _mesh);
+        node.getComponent(LissaJous.f.ComponentMesh).pivot.scale(new LissaJous.f.Vector3(0.1, 0.1, 1));
+        return node;
     }
     function hndPointerMove(_event) {
         if (!_event.buttons)
