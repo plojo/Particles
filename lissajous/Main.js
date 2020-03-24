@@ -29,7 +29,7 @@ var LissaJous;
         viewport.activateWheelEvent("\u0192wheel" /* WHEEL */, true);
         viewport.addEventListener("\u0192pointermove" /* MOVE */, hndPointerMove);
         viewport.addEventListener("\u0192wheel" /* WHEEL */, hndWheelMove);
-        let mesh = new LissaJous.f.MeshQuad();
+        let mesh = new LissaJous.f.MeshCube();
         let material = new LissaJous.f.Material("Alpha", LissaJous.f.ShaderUniColor, new LissaJous.f.CoatColored(LissaJous.f.Color.CSS("RED")));
         root.addChild(particles);
         particles.addChild(particle(mesh, material));
@@ -48,7 +48,8 @@ var LissaJous;
             for (const child of particles.getChildren()) {
                 let x = move(time, lissaJous(omegaX, time, phaseX));
                 let y = gravity(time, lissaJous(omegaY, time, phaseY));
-                let translation = new LissaJous.f.Vector3(x, y, 0);
+                let z = lissaJous(time, 1, 0);
+                let translation = new LissaJous.f.Vector3(x, y, z);
                 child.cmpTransform.local.translation = translation;
                 // console.log(child);
                 time -= 0.1;
@@ -71,7 +72,7 @@ var LissaJous;
     }
     function particle(_mesh, _material) {
         let node = new LissaJous.fAid.Node("Alpha", LissaJous.f.Matrix4x4.TRANSLATION(new LissaJous.f.Vector3(0, 0, 0)), _material, _mesh);
-        node.getComponent(LissaJous.f.ComponentMesh).pivot.scale(new LissaJous.f.Vector3(0.1, 0.1, 1));
+        node.getComponent(LissaJous.f.ComponentMesh).pivot.scale(new LissaJous.f.Vector3(0.1, 0.1, 0.1));
         return node;
     }
     function hndPointerMove(_event) {

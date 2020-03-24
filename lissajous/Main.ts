@@ -35,7 +35,7 @@ namespace LissaJous {
         viewport.addEventListener(f.EVENT_POINTER.MOVE, hndPointerMove);
         viewport.addEventListener(f.EVENT_WHEEL.WHEEL, hndWheelMove);
 
-        let mesh: f.Mesh = new f.MeshQuad();
+        let mesh: f.Mesh = new f.MeshCube();
         let material: f.Material = new f.Material("Alpha", f.ShaderUniColor, new f.CoatColored(f.Color.CSS("RED")));
 
         root.addChild(particles);
@@ -60,7 +60,8 @@ namespace LissaJous {
             for (const child of particles.getChildren()) {
                 let x: number = move(time, lissaJous(omegaX, time, phaseX));
                 let y: number = gravity(time, lissaJous(omegaY, time, phaseY));
-                let translation: f.Vector3 = new f.Vector3(x, y, 0);
+                let z: number = lissaJous(time, 1, 0);
+                let translation: f.Vector3 = new f.Vector3(x, y, z);
                 child.cmpTransform.local.translation = translation;
                 // console.log(child);
                 time -= 0.1;
@@ -89,7 +90,7 @@ namespace LissaJous {
 
     function particle(_mesh: f.Mesh, _material: f.Material): f.Node {
         let node: f.Node = new fAid.Node("Alpha", f.Matrix4x4.TRANSLATION(new f.Vector3(0, 0, 0)), _material, _mesh);
-        node.getComponent(f.ComponentMesh).pivot.scale(new f.Vector3(0.1, 0.1, 1));
+        node.getComponent(f.ComponentMesh).pivot.scale(new f.Vector3(0.1, 0.1, 0.1));
         return node;
     }
 
