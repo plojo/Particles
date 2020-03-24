@@ -49,7 +49,7 @@ namespace LissaJous {
         let phaseX: number = Math.PI / 2;
         let phaseY: number = 0;
 
-        f.Time.game.setTimer(100, 20, () => {
+        f.Time.game.setTimer(500, 20, () => {
             particles.addChild(particle(mesh, material));
         });
 
@@ -58,10 +58,11 @@ namespace LissaJous {
         function update(_event: f.Eventƒ): void {
             let time: number = f.Time.game.get() * 0.001;
             for (const child of particles.getChildren()) {
-                let x: number = Math.sin(omegaX * time + phaseX);
-                let y: number = Math.sin(omegaY * time + phaseY);
-                child.cmpTransform.local.translation = new f.Vector3(x, y, 0);
-                console.log(child);
+                let x: number = move(time, lissaJous(omegaX, time, phaseX));
+                let y: number = gravity(time, lissaJous(omegaY, time, phaseY));
+                let translation: f.Vector3 = new f.Vector3(x, y, 0);
+                child.cmpTransform.local.translation = translation;
+                // console.log(child);
                 time -= 0.1;
             }
             // console.log(time);
@@ -73,6 +74,18 @@ namespace LissaJous {
     // function update(_time: number): f.Vector3 {
     //     return new f.Vector3()
     // }
+
+    function lissaJous(_time: number, _omega: number, _phase: number): number {
+        return Math.sin(_omega * _time + _phase);
+    }
+
+    function move(_time: number, _value: number): number {
+        return _value + Math.sin(_time * 0.1) * 2;
+    }
+
+    function gravity(_time: number, _value: number): number {
+        return _value - 1 / 2 * _time * _time * 0.01; 
+    }
 
     function particle(_mesh: f.Mesh, _material: f.Material): f.Node {
         let node: f.Node = new fAid.Node("Alpha", f.Matrix4x4.TRANSLATION(new f.Vector3(0, 0, 0)), _material, _mesh);
