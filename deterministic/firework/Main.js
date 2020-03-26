@@ -77,9 +77,6 @@ var ParticlesDeterministic;
     function fuzzy(_range, _base = 0) {
         return (_base + Math.random() - 0.5) * _range * 2;
     }
-    function choose(_array) {
-        return _array[Math.floor(Math.random() * _array.length)];
-    }
     function renderCanvasImage(_ctx, _particles, _fade = 0) {
         for (const particle of _particles) {
             _ctx.save();
@@ -88,28 +85,6 @@ var ParticlesDeterministic;
             // _ctx.rotate(particle.angle);
             _ctx.drawImage(particle.image, -particle.image.width / 2, -particle.image.height / 2);
             _ctx.restore();
-        }
-    }
-    function accelerationf(_force) {
-        return (_particle, _deltaTime) => {
-            _particle.velocity.add(ParticlesDeterministic.f.Vector2.SCALE(_force, _deltaTime));
-        };
-    }
-    function dampingf(_damping) {
-        return (_particle, _deltaTime) => {
-            _particle.velocity.scale(_damping);
-        };
-    }
-    function loadImages(_sources, _callback) {
-        let loaded = 0;
-        let images = [];
-        function onload() { if (++loaded == _sources.length)
-            _callback(images); }
-        for (const src of _sources) {
-            let image = new Image();
-            images.push(image);
-            image.onload = onload;
-            image.src = src;
         }
     }
 })(ParticlesDeterministic || (ParticlesDeterministic = {}));

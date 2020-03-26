@@ -9,43 +9,45 @@ var Particles;
         // firework();
         loadImages(["flame1.png", "flame2.png", "flame3.png", "flame4.png"], fire);
     }
-    function firework() {
-        const canvas = document.querySelector("canvas");
-        let ctx = canvas.getContext("2d");
-        let system = new Particles.ParticleSystem();
-        let gravity = accelerationf(new Particles.f.Vector2(0, 50));
-        let drag = dampingf(0.97);
-        let wind = (_particle, _deltaTime) => {
-            _particle.velocity.x += _deltaTime * Math.random() * 50;
-        };
-        system.forces.push(gravity);
-        system.forces.push(drag);
-        system.forces.push(wind);
-        window.setInterval(() => {
-            if (Math.random() < 0.01) {
-                emit(system, canvas.width, canvas.height);
-            }
-            system.update(1 / 30);
-            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.globalCompositeOperation = "lighter";
-            renderCanvasImage(ctx, system.particles);
-            ctx.globalCompositeOperation = "source-over";
-        }, 1000 / 30);
-        function emit(_system, _width, _height) {
-            let position = new Particles.f.Vector2(Math.random() * _width, Math.random() * _height);
-            for (let index = 0; index < 100; index++) {
-                let particle = new Particles.Particle(position.copy);
-                let alpha = fuzzy(Math.PI);
-                let radius = Math.random() * 100;
-                particle.velocity.x = Math.cos(alpha) * radius;
-                particle.velocity.y = Math.sin(alpha) * radius;
-                particle.image = spark;
-                particle.maxAge = fuzzy(0.5, 2);
-                _system.particles.push(particle);
-            }
-        }
-    }
+    // function firework(): void {
+    //     const canvas: HTMLCanvasElement = document.querySelector("canvas");
+    //     let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
+    //     let system: ParticleSystem = new ParticleSystem();
+    //     let gravity: Force = accelerationf(new f.Vector2(0, 50));
+    //     let drag: Force = dampingf(0.97);
+    //     let wind: Force = (_particle: Particle, _deltaTime: number): void => {
+    //         _particle.velocity.x += _deltaTime * Math.random() * 50;
+    //     };
+    //     system.forces.push(gravity);
+    //     system.forces.push(drag);
+    //     system.forces.push(wind);
+    //     window.setInterval(
+    //         () => {
+    //             if (Math.random() < 0.01) {
+    //                 emit(system, canvas.width, canvas.height);
+    //             }
+    //             system.update(1 / 30);
+    //             ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    //             ctx.fillRect(0, 0, canvas.width, canvas.height);
+    //             ctx.globalCompositeOperation = "lighter";
+    //             renderCanvasImage(ctx, system.particles);
+    //             ctx.globalCompositeOperation = "source-over";
+    //         },
+    //         1000 / 30);
+    //     function emit(_system: ParticleSystem, _width: number, _height: number): void {
+    //         let position: f.Vector2 = new f.Vector2(Math.random() * _width, Math.random() * _height);
+    //         for (let index: number = 0; index < 100; index++) {
+    //             let particle: Particle = new Particle(position.copy);
+    //             let alpha: number = fuzzy(Math.PI);
+    //             let radius: number = Math.random() * 100;
+    //             particle.velocity.x = Math.cos(alpha) * radius;
+    //             particle.velocity.y = Math.sin(alpha) * radius;
+    //             particle.image = spark;
+    //             particle.maxAge = fuzzy(0.5, 2);
+    //             _system.particles.push(particle);
+    //         }
+    //     }
+    // }
     function fire(_images) {
         const canvas = document.querySelector("canvas");
         let ctx = canvas.getContext("2d");

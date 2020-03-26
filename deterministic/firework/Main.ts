@@ -85,10 +85,6 @@ namespace ParticlesDeterministic {
         return (_base + Math.random() - 0.5) * _range * 2;
     }
 
-    function choose(_array: any[]) {
-        return _array[Math.floor(Math.random() * _array.length)];
-    }
-
     function renderCanvasImage(_ctx: CanvasRenderingContext2D, _particles: Particle[], _fade: number = 0): void {
         for (const particle of _particles) {
             _ctx.save();
@@ -97,30 +93,6 @@ namespace ParticlesDeterministic {
             // _ctx.rotate(particle.angle);
             _ctx.drawImage(particle.image, -particle.image.width / 2, -particle.image.height / 2);
             _ctx.restore();
-        }
-    }
-
-    function accelerationf(_force: f.Vector2): Force {
-        return (_particle: Particle, _deltaTime: number): void => {
-            _particle.velocity.add(f.Vector2.SCALE(_force, _deltaTime));
-        };
-    }
-
-    function dampingf(_damping: number): Force {
-        return (_particle: Particle, _deltaTime: number): void => {
-            _particle.velocity.scale(_damping);
-        }
-    }
-
-    function loadImages(_sources: string[], _callback: { (images: HTMLImageElement[]): void }): void {
-        let loaded: number = 0;
-        let images: HTMLImageElement[] = [];
-        function onload(): void { if (++loaded == _sources.length) _callback(images); }
-        for (const src of _sources) {
-            let image: HTMLImageElement = new Image();
-            images.push(image);
-            image.onload = onload;
-            image.src = src;
         }
     }
 }

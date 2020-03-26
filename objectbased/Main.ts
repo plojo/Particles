@@ -10,49 +10,49 @@ namespace Particles {
         loadImages(["flame1.png", "flame2.png", "flame3.png", "flame4.png"], fire);
     }
 
-    function firework(): void {
-        const canvas: HTMLCanvasElement = document.querySelector("canvas");
-        let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
-        let system: ParticleSystem = new ParticleSystem();
+    // function firework(): void {
+    //     const canvas: HTMLCanvasElement = document.querySelector("canvas");
+    //     let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
+    //     let system: ParticleSystem = new ParticleSystem();
 
-        let gravity: Force = accelerationf(new f.Vector2(0, 50));
-        let drag: Force = dampingf(0.97);
-        let wind: Force = (_particle: Particle, _deltaTime: number): void => {
-            _particle.velocity.x += _deltaTime * Math.random() * 50;
-        };
+    //     let gravity: Force = accelerationf(new f.Vector2(0, 50));
+    //     let drag: Force = dampingf(0.97);
+    //     let wind: Force = (_particle: Particle, _deltaTime: number): void => {
+    //         _particle.velocity.x += _deltaTime * Math.random() * 50;
+    //     };
 
-        system.forces.push(gravity);
-        system.forces.push(drag);
-        system.forces.push(wind);
+    //     system.forces.push(gravity);
+    //     system.forces.push(drag);
+    //     system.forces.push(wind);
 
-        window.setInterval(
-            () => {
-                if (Math.random() < 0.01) {
-                    emit(system, canvas.width, canvas.height);
-                }
-                system.update(1 / 30);
-                ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.globalCompositeOperation = "lighter";
-                renderCanvasImage(ctx, system.particles);
-                ctx.globalCompositeOperation = "source-over";
-            },
-            1000 / 30);
+    //     window.setInterval(
+    //         () => {
+    //             if (Math.random() < 0.01) {
+    //                 emit(system, canvas.width, canvas.height);
+    //             }
+    //             system.update(1 / 30);
+    //             ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    //             ctx.fillRect(0, 0, canvas.width, canvas.height);
+    //             ctx.globalCompositeOperation = "lighter";
+    //             renderCanvasImage(ctx, system.particles);
+    //             ctx.globalCompositeOperation = "source-over";
+    //         },
+    //         1000 / 30);
 
-        function emit(_system: ParticleSystem, _width: number, _height: number): void {
-            let position: f.Vector2 = new f.Vector2(Math.random() * _width, Math.random() * _height);
-            for (let index: number = 0; index < 100; index++) {
-                let particle: Particle = new Particle(position.copy);
-                let alpha: number = fuzzy(Math.PI);
-                let radius: number = Math.random() * 100;
-                particle.velocity.x = Math.cos(alpha) * radius;
-                particle.velocity.y = Math.sin(alpha) * radius;
-                particle.image = spark;
-                particle.maxAge = fuzzy(0.5, 2);
-                _system.particles.push(particle);
-            }
-        }
-    }
+    //     function emit(_system: ParticleSystem, _width: number, _height: number): void {
+    //         let position: f.Vector2 = new f.Vector2(Math.random() * _width, Math.random() * _height);
+    //         for (let index: number = 0; index < 100; index++) {
+    //             let particle: Particle = new Particle(position.copy);
+    //             let alpha: number = fuzzy(Math.PI);
+    //             let radius: number = Math.random() * 100;
+    //             particle.velocity.x = Math.cos(alpha) * radius;
+    //             particle.velocity.y = Math.sin(alpha) * radius;
+    //             particle.image = spark;
+    //             particle.maxAge = fuzzy(0.5, 2);
+    //             _system.particles.push(particle);
+    //         }
+    //     }
+    // }
 
     function fire(_images: HTMLImageElement[]): void {
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
@@ -107,7 +107,7 @@ namespace Particles {
         return (_base + Math.random() - 0.5) * _range * 2;
     }
 
-    function choose(_array: any[]) {
+    function choose(_array: CanvasImageSource[]): CanvasImageSource {
         return _array[Math.floor(Math.random() * _array.length)];
     }
 
