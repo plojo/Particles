@@ -7,10 +7,9 @@ namespace Particles {
 
     function hndLoad(_event: Event): void {
         firework();
-        loadImages(["flame1.png", "flame2.png", "flame3.png", "flame4.png"], fire);
+        loadImages(["flame1.png", "flame2.png", "flame3.png", "flame4.png"], flame);
     }
 
-<<<<<<< HEAD
     function firework(): void {
         const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("firework");
         let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
@@ -55,7 +54,7 @@ namespace Particles {
         }
     }
 
-    function fire(_images: HTMLImageElement[]): void {
+    function flame(_images: HTMLImageElement[]): void {
         const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("flame");
         let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
         let system: ParticleSystem = new ParticleSystem();

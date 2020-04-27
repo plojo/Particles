@@ -7,7 +7,7 @@ var Particles;
     spark.src = "spark.png";
     function hndLoad(_event) {
         firework();
-        loadImages(["flame1.png", "flame2.png", "flame3.png", "flame4.png"], fire);
+        loadImages(["flame1.png", "flame2.png", "flame3.png", "flame4.png"], flame);
     }
     function firework() {
         const canvas = document.getElementById("firework");
@@ -46,7 +46,7 @@ var Particles;
             }
         }
     }
-    function fire(_images) {
+    function flame(_images) {
         const canvas = document.getElementById("flame");
         let ctx = canvas.getContext("2d");
         let system = new Particles.ParticleSystem();

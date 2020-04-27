@@ -90,10 +90,6 @@ namespace ParticlesDeterministicFire {
         camera.distance = camera.distance + _event.deltaY * speedCameraTranslation;
     }
 
-    function rand(_range: number, _base: number = 0): number {
-        return (_base + Math.random() - 0.5) * _range * 2;
-    }
-
     function accelerationFunction(_force: f.Vector3): Curve {
         return (_translation: f.Vector3, _deltaTime: number): f.Vector3 => {
             return f.Vector3.SCALE(_force, (.5 * _deltaTime * _deltaTime));

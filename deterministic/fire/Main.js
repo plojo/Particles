@@ -73,9 +73,6 @@ var ParticlesDeterministicFire;
     function hndWheelMove(_event) {
         camera.distance = camera.distance + _event.deltaY * speedCameraTranslation;
     }
-    function rand(_range, _base = 0) {
-        return (_base + Math.random() - 0.5) * _range * 2;
-    }
     function accelerationFunction(_force) {
         return (_translation, _deltaTime) => {
             return ParticlesDeterministicFire.f.Vector3.SCALE(_force, (.5 * _deltaTime * _deltaTime));
