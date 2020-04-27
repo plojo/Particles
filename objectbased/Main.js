@@ -6,11 +6,11 @@ var Particles;
     let spark = new Image();
     spark.src = "spark.png";
     function hndLoad(_event) {
-        // firework();
+        firework();
         loadImages(["flame1.png", "flame2.png", "flame3.png", "flame4.png"], fire);
     }
     function firework() {
-        const canvas = document.querySelector("canvas");
+        const canvas = document.getElementById("firework");
         let ctx = canvas.getContext("2d");
         let system = new Particles.ParticleSystem();
         let gravity = accelerationf(new Particles.f.Vector2(0, 50));
@@ -47,7 +47,7 @@ var Particles;
         }
     }
     function fire(_images) {
-        const canvas = document.querySelector("canvas");
+        const canvas = document.getElementById("flame");
         let ctx = canvas.getContext("2d");
         let system = new Particles.ParticleSystem();
         let lift = accelerationf(new Particles.f.Vector2(0, -50));

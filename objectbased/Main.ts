@@ -6,12 +6,12 @@ namespace Particles {
     spark.src = "spark.png";
 
     function hndLoad(_event: Event): void {
-        // firework();
+        firework();
         loadImages(["flame1.png", "flame2.png", "flame3.png", "flame4.png"], fire);
     }
 
     function firework(): void {
-        const canvas: HTMLCanvasElement = document.querySelector("canvas");
+        const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("firework");
         let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
         let system: ParticleSystem = new ParticleSystem();
 
@@ -55,7 +55,7 @@ namespace Particles {
     }
 
     function fire(_images: HTMLImageElement[]): void {
-        const canvas: HTMLCanvasElement = document.querySelector("canvas");
+        const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("flame");
         let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
         let system: ParticleSystem = new ParticleSystem();
 
