@@ -10,6 +10,7 @@ namespace Particles {
         loadImages(["flame1.png", "flame2.png", "flame3.png", "flame4.png"], fire);
     }
 
+<<<<<<< HEAD
     function firework(): void {
         const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("firework");
         let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
@@ -107,7 +108,7 @@ namespace Particles {
         return (_base + Math.random() - 0.5) * _range * 2;
     }
 
-    function choose(_array: any[]) {
+    function choose(_array: CanvasImageSource[]): CanvasImageSource {
         return _array[Math.floor(Math.random() * _array.length)];
     }
 
